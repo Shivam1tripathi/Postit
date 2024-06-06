@@ -6,16 +6,40 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
-const Card1 = () => {
+const Card1 = (props) => {
     const [posts,setPosts]=useState([]);
-   
+    const [allpost,setAllpost]=useState([]);
+    const [search,setSearch]=useState("");
+    useEffect(()=>{
+      setSearch(props.search)
+    })
+  
     const getpost=async()=>{
       const data1=await axios.get("https://jsonplaceholder.typicode.com/posts");
       setPosts(data1.data);
+      setAllpost(posts);
+    }
+    const searching=async()=>{
+     const data= allpost.filter((c)=>{
+        if(c.title.includes(search)){
+          return c;
+        }
+      })
+      setPosts(data);
     }
     useEffect(()=>{
+      if(search.length>0){
+        searching();
+      }
+    },[search])
+
+    useEffect(()=>{
+      if(search.length<1){
   getpost();
-    },[])
+      }
+      
+    },[search])
+
   return (
     <div className='flex  justify-center p-10 bg-slate-300 cr'>   
     <div>
