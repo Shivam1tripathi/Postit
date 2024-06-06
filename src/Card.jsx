@@ -22,7 +22,7 @@ const Card1 = () => {
         {posts.map((c,i)=>{
             
           return(
-            <div className='mt-4 flex items-center'>
+            <div className='mt-4 flex max-sm:flex-col items-center'>
               <h1 className='font-bold text-center text-black text-xl mr-10'>Post {i+1}:</h1>      
 <Card sx={{ maxWidth: 700 }} >
   
